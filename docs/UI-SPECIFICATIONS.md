@@ -1,7 +1,7 @@
 # UI Specifications
 
 ## Overview
-Mobile-responsive web application built with React and Tailwind CSS. Design prioritizes clarity, speed, and cost visibility.
+Mobile-responsive web application built with React, TypeScript, Vite, and Tailwind CSS. Design prioritizes clarity, speed, and cost visibility. Data fetching handled via TanStack Query for caching and optimistic updates.
 
 ## Design Principles
 1. **Cost-First**: Price information is prominent, not hidden
@@ -953,7 +953,7 @@ Common icons needed:
 
 3. **Data Fetching**
    - Implement loading states for all async operations
-   - Cache GET requests (React Query recommended)
+   - Use TanStack Query (React Query) for caching and state management
    - Optimistic updates for fast UX
 
 4. **Bundle Size**

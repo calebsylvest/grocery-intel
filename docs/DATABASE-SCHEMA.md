@@ -158,9 +158,9 @@ CREATE INDEX idx_stores_name ON stores(name);
 **Sample Data**:
 ```sql
 INSERT INTO stores (name, location, store_type) VALUES
-  ('Kroger - Main St', '123 Main St, Dallas TX', 'grocery'),
-  ('Walmart Supercenter', '456 Highway 75, Dallas TX', 'warehouse'),
-  ('Whole Foods - Uptown', '789 Oak St, Dallas TX', 'specialty');
+  ('Kroger', 'Local Kroger store', 'grocery'),
+  ('Walmart', 'Local Walmart Supercenter', 'warehouse'),
+  ('Whole Foods', 'Local Whole Foods Market', 'specialty');
 ```
 
 ---
@@ -198,10 +198,12 @@ CREATE UNIQUE INDEX idx_prices_latest ON prices(food_item_id, store_id, date_rec
 
 **Sample Data**:
 ```sql
+-- Store IDs: 1=Kroger, 2=Walmart, 3=Whole Foods
 INSERT INTO prices (food_item_id, store_id, price, unit, package_size, date_recorded) VALUES
-  (1, 1, 3.99, 'lb', 'loose', '2025-02-04'),
-  (1, 2, 4.49, 'lb', 'loose', '2025-02-04'),
-  (2, 1, 3.29, 'gallon', '1 gallon jug', '2025-02-04');
+  (1, 1, 3.99, 'lb', 'loose', CURRENT_DATE),  -- Chicken at Kroger
+  (1, 2, 3.49, 'lb', 'loose', CURRENT_DATE),  -- Chicken at Walmart
+  (1, 3, 6.99, 'lb', 'loose', CURRENT_DATE),  -- Chicken at Whole Foods
+  (2, 1, 3.29, 'gallon', '1 gallon jug', CURRENT_DATE);  -- Milk at Kroger
 ```
 
 **Business Logic**:
@@ -440,11 +442,11 @@ CREATE INDEX idx_shopping_trips_date ON shopping_trips(trip_date);
 -- Sample categories for food items
 -- Meat, Dairy, Produce, Pantry, Frozen, Bakery, Beverages, Snacks
 
--- Sample stores
+-- Sample stores (Primary shopping locations)
 INSERT INTO stores (name, location, store_type) VALUES
-  ('Kroger - Main St', '123 Main St, Dallas TX', 'grocery'),
-  ('Walmart Supercenter', '456 Highway 75, Dallas TX', 'warehouse'),
-  ('Whole Foods - Uptown', '789 Oak St, Dallas TX', 'specialty');
+  ('Kroger', 'Local Kroger store', 'grocery'),
+  ('Walmart', 'Local Walmart Supercenter', 'warehouse'),
+  ('Whole Foods', 'Local Whole Foods Market', 'specialty');
 
 -- Sample food items (common staples)
 INSERT INTO food_items (name, category, default_unit) VALUES
@@ -465,16 +467,24 @@ INSERT INTO food_items (name, category, default_unit) VALUES
   ('Salt', 'Pantry', 'oz');
 
 -- Sample prices (realistic ranges)
+-- Store IDs: 1=Kroger, 2=Walmart, 3=Whole Foods
 INSERT INTO prices (food_item_id, store_id, price, unit, date_recorded) VALUES
-  (1, 1, 3.99, 'lb', CURRENT_DATE),
-  (1, 2, 4.49, 'lb', CURRENT_DATE),
-  (1, 3, 5.99, 'lb', CURRENT_DATE),
-  (2, 1, 4.99, 'lb', CURRENT_DATE),
-  (2, 2, 4.29, 'lb', CURRENT_DATE),
-  (4, 1, 3.29, 'gallon', CURRENT_DATE),
-  (4, 2, 2.98, 'gallon', CURRENT_DATE),
-  (5, 1, 2.49, 'dozen', CURRENT_DATE),
-  (5, 2, 1.98, 'dozen', CURRENT_DATE);
+  -- Chicken Breast (food_item_id=1)
+  (1, 1, 3.99, 'lb', CURRENT_DATE),   -- Kroger
+  (1, 2, 3.49, 'lb', CURRENT_DATE),   -- Walmart
+  (1, 3, 6.99, 'lb', CURRENT_DATE),   -- Whole Foods
+  -- Ground Beef (food_item_id=2)
+  (2, 1, 4.99, 'lb', CURRENT_DATE),   -- Kroger
+  (2, 2, 4.29, 'lb', CURRENT_DATE),   -- Walmart
+  (2, 3, 7.99, 'lb', CURRENT_DATE),   -- Whole Foods
+  -- Whole Milk (food_item_id=4)
+  (4, 1, 3.29, 'gallon', CURRENT_DATE),  -- Kroger
+  (4, 2, 2.98, 'gallon', CURRENT_DATE),  -- Walmart
+  (4, 3, 5.99, 'gallon', CURRENT_DATE),  -- Whole Foods
+  -- Eggs Large (food_item_id=5)
+  (5, 1, 2.49, 'dozen', CURRENT_DATE),   -- Kroger
+  (5, 2, 1.98, 'dozen', CURRENT_DATE),   -- Walmart
+  (5, 3, 4.99, 'dozen', CURRENT_DATE);   -- Whole Foods
 
 -- Sample recipe
 INSERT INTO recipes (name, servings, prep_time, cook_time, instructions) VALUES

@@ -18,16 +18,19 @@
 **Tasks**:
 
 **Monday-Tuesday** (8 hours):
-- [ ] Create GitHub repository
-- [ ] Initialize backend (`npm init`, install dependencies)
-  - Express, pg (PostgreSQL client), dotenv, cors, nodemon
-- [ ] Initialize frontend (`create-react-app` or Vite)
+- [ ] Create GitHub repository ✓ (already done)
+- [ ] Install PostgreSQL locally via Homebrew
+- [ ] Initialize backend with TypeScript
+  - Express, pg, Zod, dotenv, cors, tsx
+  - TypeScript + ESLint + Prettier config
+- [ ] Initialize frontend with Vite + TypeScript
   - Tailwind CSS setup
   - React Router
-  - Axios for API calls
-- [ ] Set up PostgreSQL database (local or Neon)
+  - TanStack Query + Axios
+  - ESLint + Prettier config
+- [ ] Set up PostgreSQL database (local development)
 - [ ] Run database initialization script (from DATABASE-SCHEMA.md)
-- [ ] Seed database with sample data
+- [ ] Seed database with sample data (Kroger, Walmart, Whole Foods)
 - [ ] Configure environment variables (.env)
 
 **Wednesday-Thursday** (8 hours):
@@ -40,8 +43,12 @@
       /models
       /services
       /utils
-      app.js
-      server.js
+      /middleware
+      /schemas        # Zod validation schemas
+      app.ts
+      server.ts
+    /tsconfig.json
+    /package.json
 ```
 - [ ] Implement Food Items endpoints
   - GET /api/food-items
@@ -87,11 +94,12 @@
 - [ ] Handle edge cases (no ingredients, duplicate ingredients)
 
 **Wednesday-Thursday** (8 hours):
-- [ ] Frontend layout structure
+- [ ] Frontend layout structure (TypeScript)
   - App shell with sidebar/bottom nav
   - Routing setup (/, /recipes, /meal-plans, /stores, /analytics)
   - Mobile-responsive navigation
-- [ ] Create shared components
+  - TanStack Query provider setup
+- [ ] Create shared components (with TypeScript interfaces)
   - Button (primary, secondary, danger)
   - Card
   - Input, Select, TextArea
@@ -139,7 +147,7 @@
   - Instructions textarea
   - Form validation
   - Save to API (POST or PUT)
-- [ ] Handle form state (useState or React Hook Form)
+- [ ] Handle form state (React Hook Form with Zod resolver for validation)
 - [ ] Success/error feedback (toast notifications)
 
 **Wednesday-Thursday** (8 hours):
@@ -453,24 +461,34 @@
 
 ### Backend
 - **Node.js**: v18+ (LTS)
+- **TypeScript**: Type-safe JavaScript
 - **Express**: Web framework
 - **pg**: PostgreSQL client
+- **Zod**: Schema validation for API inputs
 - **dotenv**: Environment variables
 - **cors**: CORS middleware
-- **nodemon**: Dev server auto-restart
+- **tsx**: TypeScript execution for development (replaces nodemon)
 
 ### Frontend
 - **React**: v18+
+- **TypeScript**: Type-safe JavaScript
+- **Vite**: Build tool and dev server (replaces CRA)
 - **React Router**: v6
+- **TanStack Query (React Query)**: Data fetching and caching
 - **Tailwind CSS**: v3
 - **Axios**: HTTP client
 - **Recharts**: Chart library (analytics)
 - **Heroicons**: Icon library
 - **date-fns**: Date manipulation
 
+### Code Quality
+- **ESLint**: Linting
+- **Prettier**: Code formatting
+- **TypeScript**: Static type checking
+
 ### Database
-- **PostgreSQL**: v14+
-- **Neon** (recommended) or local PostgreSQL
+- **PostgreSQL**: v14+ (local development)
+- **Neon**: Cloud PostgreSQL (production)
 
 ### Development
 - **VSCode**: Editor
@@ -482,6 +500,9 @@
 - **Backend**: Railway or Render (free tier)
 - **Frontend**: Vercel or Netlify (free tier)
 - **Database**: Neon (free tier, 512MB)
+
+### Future Consideration
+- **PWA**: Service worker for offline shopping list access (post-MVP)
 
 ---
 

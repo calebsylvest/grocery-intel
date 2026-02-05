@@ -41,11 +41,15 @@ A web-based tool that enables:
 - **Total**: 6-8 weeks to fully functional MVP
 
 ## Technology Stack
-- **Backend**: Node.js + Express
-- **Database**: PostgreSQL
-- **Frontend**: React + Tailwind CSS
-- **Deployment**: Railway/Render (backend), Vercel (frontend) or Neon for DB
+- **Backend**: Node.js + Express + TypeScript
+- **Database**: PostgreSQL (local dev), Neon (production)
+- **Frontend**: React + Vite + TypeScript + Tailwind CSS
+- **Data Fetching**: TanStack Query (React Query)
+- **Validation**: Zod (backend & frontend)
+- **Code Quality**: ESLint + Prettier
+- **Deployment**: Railway/Render (backend), Vercel (frontend), Neon (database)
 - **Development**: Local-first, single user (no auth initially)
+- **Future**: PWA support for offline shopping list access
 
 ## Key Metrics to Track
 1. **Cost Savings**: Planned vs. Actual grocery spending per week
@@ -63,8 +67,11 @@ grocery-intel/
 │   │   ├── controllers/
 │   │   ├── models/
 │   │   ├── services/
+│   │   ├── schemas/       # Zod validation schemas
+│   │   ├── middleware/
 │   │   └── utils/
 │   ├── migrations/
+│   ├── tsconfig.json
 │   └── package.json
 ├── frontend/
 │   ├── src/
@@ -72,7 +79,10 @@ grocery-intel/
 │   │   ├── pages/
 │   │   ├── hooks/
 │   │   ├── services/
+│   │   ├── types/         # TypeScript interfaces
 │   │   └── utils/
+│   ├── tsconfig.json
+│   ├── vite.config.ts
 │   └── package.json
 ├── docs/
 │   ├── PROJECT-OVERVIEW.md
@@ -81,6 +91,8 @@ grocery-intel/
 │   ├── API-SPECIFICATION.md
 │   ├── UI-SPECIFICATIONS.md
 │   └── DEVELOPMENT-PLAN.md
+├── .eslintrc.cjs
+├── .prettierrc
 └── README.md
 ```
 
